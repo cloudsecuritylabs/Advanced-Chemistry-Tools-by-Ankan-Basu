@@ -60,7 +60,8 @@ class myApp:
                 c=a/(10**(-b))
                 self.labelresult=Label(self.container, text="Your OH- concentration is: $ %.2e" % c)
                 self.labelresult.grid(row=6, column=0,  sticky='W')
-
+                self.labelresult2=Label(self.container, text="Your H+ concentration is: $ %.2e" % 10**(-b))
+                self.labelresult2.grid(row=7, column=0,  sticky='W')
            
             elif(self.var1.get()==1 and self.var2.get()==0 and self.var3.get()==0):
                 c=a/b
@@ -88,6 +89,7 @@ class myApp:
     def reset(self,event):
         if(self.var3.get()==1):
             self.labelresult.config(text="")
+            self.labelresult2.config(text="")
 
         else:
             self.labelresult.config(text="")
