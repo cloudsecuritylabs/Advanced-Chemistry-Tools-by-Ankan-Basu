@@ -1,0 +1,107 @@
+#programmer: Ankan Basu, PG, CPG, Hydrogeologist/Geochemist
+from tkinter import *
+import math
+
+# this is a GUI application for calculating pH of a buffer solution using Henderson - Hasselbalch Equation
+#####################
+#Strong acid and strong base
+#####################
+
+#base and acid concentrations are generally provided.
+#If pKb is provided, this program would calculate the proper pKa using using 1.0e-14 assumption for Kw
+
+
+#Programmer: Ankan Basu, PG, CPG, Hydrogeologist/Geochemist
+#Experience: 10+ years of experience in mining and consulting field
+#website: www.coalgeology.com
+#contact: basu.ankan@gmail.com
+#Linkedin resume: http://www.linkedin.com/in/ankanbasu
+
+#note: 3/17/17, code updated.
+
+class myApp:
+
+
+    def __init__(self, master):
+        #create a frame
+        self.container=Frame(master)
+        self.container.grid()
+        #create a header
+        self.label1=Label(self.container, text="pH Calculator Strong acid strong base titration", fg='yellow', bg='black')
+        self.label1.grid(row=0, columnspan=4)
+
+        #create label for entry boxes - we need to ask for [base], [acid] and pK and add check box for either pKa or pKb
+        self.label2=Label(self.container, text="Volume of acid (ml)")
+        self.label2.grid(row=1, column=0, sticky='W')
+        
+        self.label3=Label(self.container, text="Concentration of acid (M/L)")
+        self.label3.grid(row=2, column=0, sticky='W')
+
+        self.label4=Label(self.container, text="Volume of base")
+        self.label4.grid(row=3, column=0, sticky='W')
+
+        self.label4=Label(self.container, text="Concentration of base")
+        self.label4.grid(row=4, column=0, sticky='W')
+        
+        #create 4 entry boxes
+
+        self.acidvol=StringVar()
+        self.acidm=StringVar()
+        self.basevol=StringVar()
+        self.basem=StringVar()        
+
+        self.myacidvol=Entry(self.container, textvariable=self.acidvol).grid(row=1, column=1, sticky='W')
+        self.myacidm=Entry(self.container, textvariable=self.acidm).grid(row=2, column=1, sticky='W')
+        self.mybasevol=Entry(self.container, textvariable=self.basevol).grid(row=3, column=1, sticky='W')
+        self.mybasem=Entry(self.container, textvariable=self.basem).grid(row=4, column=1, sticky='W')
+
+
+
+        #create button to calculate pH, bind event to self.calculate
+        self.mybutton1=Button(self.container, text='Calculate')
+        self.mybutton1.grid(row=5, column=0, sticky='W')
+        self.mybutton1.bind("<Button-1>", self.calculate)
+
+        #create button to reset
+        self.mybutton1=Button(self.container, text='Reset')
+        self.mybutton1.grid(row=6, column=0, sticky='W')
+        self.mybutton1.bind("<Button-1>", self.reset)
+        
+
+    def calculate(self, event):
+        try:
+            mybasevol=float(self.basevol.get())
+            mybasem=float(self.basem.get())
+            myacidvol=float(self.acidvol.get())
+            myacidm=float(self.acidm.get())
+
+            ma=myacidm*myacidvol/1000
+            mb=mybasem*mybasevol/1000
+            tv=mybasevol+myacidvol
+
+            if(ma>mb):
+                H=ma-mb
+                pH=-math.log10(H*1000/(tv))
+                self.label10=Label(self.container, text="pH of the solution is %.3f" % pH, fg='yellow', bg='black')
+                self.label10.grid(row=7, columnspan=4)
+
+            else:
+                OH=mb-ma
+                pOH=-math.log10(OH*1000/(tv))
+                self.label10=Label(self.container, text="pOH of the solution is %.3f" % pOH, fg='yellow', bg='black')
+                self.label10.grid(row=7, columnspan=4)
+
+        except ValueError:
+            pass
+        
+    def reset(self,event):
+            self.label10.config(text="")
+
+
+
+myGUI=Tk()
+myGUI.geometry('400x200+500+200')
+myGUI.title('pH Calculator using Henderson-Hasselbalch Equation')
+myapp=myApp(myGUI)
+
+myGUI.mainloop()
