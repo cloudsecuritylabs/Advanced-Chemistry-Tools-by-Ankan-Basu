@@ -84,10 +84,14 @@ class myApp:
                 pH=-math.log10(H*1000/(tv))
                 self.label10=Label(self.container, text="pH of the solution is %.3f" % pH, fg='yellow', bg='black')
                 self.label10.grid(row=7, columnspan=4)
+                self.label11=Label(self.container, text="pOH of the solution at 25 C is %.3f" % (14-pH), fg='yellow', bg='black')
+                self.label11.grid(row=8, columnspan=4)                
 
             elif(mb>ma):
                 OH=mb-ma
                 pOH=-math.log10(OH*1000/(tv))
+                self.label11=Label(self.container, text="pH of the solution at 25 C is %.3f" % (14-pOH), fg='yellow', bg='black')
+                self.label11.grid(row=8, columnspan=4)                
                 self.label10=Label(self.container, text="pOH of the solution is %.3f" % pOH, fg='yellow', bg='black')
                 self.label10.grid(row=7, columnspan=4)
 
@@ -99,6 +103,7 @@ class myApp:
         
     def reset(self,event):
             self.label10.config(text="")
+            self.label11.config(text="")
 
 
 
