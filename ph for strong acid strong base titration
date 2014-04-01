@@ -85,12 +85,15 @@ class myApp:
                 self.label10=Label(self.container, text="pH of the solution is %.3f" % pH, fg='yellow', bg='black')
                 self.label10.grid(row=7, columnspan=4)
 
-            else:
+            elif(mb>ma):
                 OH=mb-ma
                 pOH=-math.log10(OH*1000/(tv))
                 self.label10=Label(self.container, text="pOH of the solution is %.3f" % pOH, fg='yellow', bg='black')
                 self.label10.grid(row=7, columnspan=4)
 
+            else:
+                self.label10=Label(self.container, text="pH of the solution is 7", fg='yellow', bg='black')
+                self.label10.grid(row=7, columnspan=4)
         except ValueError:
             pass
         
